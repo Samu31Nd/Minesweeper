@@ -1,0 +1,53 @@
+.root {
+    -fx-font-family: "Press Start 2P";
+    -fx-background-color: #1e1e2e;
+}
+
+.centeredBox {
+    -fx-alignment: CENTER;
+    -fx-spacing: 40px;
+    -fx-padding: 0 10px 30px 40px;
+}
+
+.title {
+    -fx-font-size: 30px;
+    -fx-text-fill: #cdd6f4;
+    -fx-effect: dropshadow(gaussian, rgba(205, 214, 244, 0.63), 1, 1, 1, 1);
+}
+
+.label {
+    -fx-text-fill: #cdd6f4;
+}
+
+.button {
+
+    -fx-padding: 10px;
+    -fx-font-size: 10px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-pref-width: 120px;
+}
+
+.startButton {
+    -fx-background-color: #f9e2af;
+}
+
+.startButton:pressed {
+    -fx-background-color: #c7ab68;
+}
+
+.optionsButton {
+    -fx-background-color: #89b4fa;
+}
+
+.optionsButton:pressed {
+    -fx-background-color: #547fc4;
+}
+
+.exitButton {
+    -fx-background-color: #f38ba8;
+}
+
+.exitButton:pressed {
+    -fx-background-color: #c45876;
+}

@@ -1,0 +1,63 @@
+.root {
+    -fx-font-family: "Press Start 2P";
+    -fx-background-color: #1e1e2e;
+}
+
+.menu > .label, .menu-item > .label{
+    -fx-text-fill: black;
+    -fx-fill: black;
+}
+
+.menuOptions{
+    -fx-text-fill: black;
+}
+
+.infoMenu {
+    -fx-alignment: center;
+    -fx-spacing: 90px;
+    -fx-font-size: 20px;
+    -fx-max-height: 200px;
+}
+
+.image {
+    -fx-max-height: 180px;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-font-family: "Arial";
+}
+
+.grid_board {
+    -fx-background-color: #45475a;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-alignment: center;
+    -fx-fill-height: true;
+}
+
+.grid_cell {
+    -fx-border-color: #1e1e2e;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: #45475a;
+    -fx-spacing: 1px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-style: none;
+}
+
+.button:hover {
+    -fx-background-color: #5c5f7a;
+}
+
+.button:disabled {
+    -fx-background-color: #1e1e2e;
+}

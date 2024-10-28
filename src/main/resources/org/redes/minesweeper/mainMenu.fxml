@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" stylesheets="@css/mainMenu.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.redes.minesweeper.mainMenuController">
+   <top>
+      <Label styleClass="title" text="MINESWEEPER" textFill="#cad3f5" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin></Label>
+   </top>
+   <right>
+      <ImageView fitHeight="299.0" fitWidth="299.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: 100px;" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@big_mine.png" />
+         </image>
+      </ImageView>
+   </right>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="centeredBox" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onStartButtonClick" styleClass="startButton" text="Jugar" />
+            <Button mnemonicParsing="false" onAction="#onOptionsButtonClick" styleClass="optionsButton" text="Opciones" />
+            <Button mnemonicParsing="false" onAction="#onExitButtonClick" styleClass="exitButton" text="Salir" />
+         </children></VBox>
+   </center>
+</BorderPane>
