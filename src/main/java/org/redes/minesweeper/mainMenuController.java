@@ -26,6 +26,7 @@ public class mainMenuController {
     @FXML
     protected void onExitButtonClick() {
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML

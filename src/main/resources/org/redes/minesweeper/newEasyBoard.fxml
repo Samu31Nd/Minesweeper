@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@css/board.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.redes.minesweeper.Board">
+   <children>
+       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+           <children>
+               <MenuBar styleClass="menuOptions">
+                   <menus>
+                       <Menu mnemonicParsing="false" text="Game">
+                           <items>
+                               <MenuItem mnemonicParsing="false" text="Restart" />
+                               <MenuItem mnemonicParsing="false" text="Stop" />
+                               <MenuItem fx:id="exitButtonItem" mnemonicParsing="false" onAction="#goToMenu" text="Exit Game" />
+                           </items>
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="Settings">
+                           <items>
+                               <MenuItem mnemonicParsing="false" text="Change theme (not implemented yet)" />
+                           </items>
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                               <MenuItem mnemonicParsing="false" text="How to play" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="infoMenu">
+                   <children>
+                       <Label fx:id="timer" text="0000" />
+                       <ImageView fitHeight="63.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
+                       <Label fx:id="noMines" text="0000" />
+                   </children>
+               </HBox>
+               <GridPane fx:id="gridBoard" alignment="CENTER" prefHeight="620.0" prefWidth="620.0" styleClass="grid_board">
+                   <columnConstraints>
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   </rowConstraints>
+                   <VBox.margin>
+                       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                   </VBox.margin>
+               </GridPane>
+           </children>
+       </VBox>
+      <VBox fx:id="gameDialogBox" prefHeight="200.0" prefWidth="100.0" styleClass="gameDialog" visible="false">
+         <children>
+            <Label fx:id="gameDialog" text="Game Status" />
+         </children></VBox>
+   </children>
+</StackPane>

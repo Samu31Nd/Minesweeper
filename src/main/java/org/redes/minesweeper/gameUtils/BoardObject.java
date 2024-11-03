@@ -10,6 +10,10 @@ public class BoardObject implements Serializable {
         this.isWin = winStatus.PLAYING;
     }
 
+    public void setNumber(int x, int y, int num){
+        board[x][y] = num;
+    }
+
     public int[][] getBoard() {
         return board;
     }
@@ -18,11 +22,11 @@ public class BoardObject implements Serializable {
         this.board = board;
     }
 
-    public winStatus isWin() {
+    public winStatus getStatus() {
         return isWin;
     }
 
-    public void setWin(winStatus win) {
-        isWin = win;
+    public void setStatus(winStatus status) {
+        isWin = status;
     }
 }

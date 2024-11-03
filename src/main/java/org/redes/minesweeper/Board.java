@@ -14,9 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.redes.minesweeper.gameUtils.winStatus;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -25,36 +27,51 @@ import java.util.function.Consumer;
 
 public class Board {
 
-    Consumer<String> showId = System.out::println;
-
     @FXML
     Label timer;
     @FXML
     Label noMines;
-
     @FXML
     GridPane gridBoard;
-    Image mineImg;
-    Button[][] buttons;
     @FXML
     MenuItem exitButtonItem;
+    @FXML
+    VBox gameDialogBox;
+    @FXML
+    Label gameDialog;
+
+    Image mineImg, flagImg;
+    Button[][] buttons;
     private int seconds = 0;
     private int x, y;
+    private int no_mines;
+    private int []size;
+    Timeline timeline;
 
     @FXML
     public void initialize() {
         BaseClient.game.startGame();
-        buttons = new Button[9][9];
+        size = BaseClient.game.gameClassShared.getDifficulty().getSize();
+        no_mines = BaseClient.game.gameClassShared.getDifficulty().getMines();
+        noMines.setText(String.format("%04d", no_mines));
+        buttons = new Button[size[0]][size[1]];
         System.out.println(BaseClient.game.getStatus());
         //cargamos la fuente externa
         Font customFont = Font.loadFont(getClass().getResourceAsStream("font/PressStart2P-Regular.ttf"),20);
         mineImg = new Image(Objects.requireNonNull(Board.class.getResourceAsStream("img/mine-medium.png")));
+        flagImg = new Image(Objects.requireNonNull(Board.class.getResourceAsStream("img/flag.png")));
 
         x = gridBoard.getColumnCount();
         y = gridBoard.getRowCount();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            seconds++;
+            timer.setText(String.format("%04d",seconds));
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         for(int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
+            for(int j = 0; j < y; j++) {
                 // Crear un nuevo botón
                 Button button = new Button();
                 button.setMaxWidth(Double.MAX_VALUE);
@@ -63,39 +80,64 @@ public class Board {
 
                 button.setOnMouseClicked(event -> {
                     Button sourceButton = (Button) event.getSource();
-                    if(event.getButton() == MouseButton.PRIMARY)
+                    if (event.getButton() == MouseButton.PRIMARY)
                         discoverMine(sourceButton);
                     else
-                        System.out.println("A implementar el click derecho");
-                    //si es click derecho, esto otro
-                    //addFlag(sourceButton);
+                        addFlag(sourceButton);
                 });
 
                 buttons[i][j] = button;
                 gridBoard.add(button, i, j);
             }
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-                seconds++;
-                timer.setText(String.format("%04d",seconds/10));
-            }));
-            timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.play();
         }
     }
 
     public void discoverMine(Button sourceButton){
-        System.out.println("Botón clickeado: " + sourceButton.getId());
-        BaseClient.game.alertMovimentInBoard(parseIDtoIntArr(sourceButton.getId()));
+        //si es una bandera que no haga nada
+        if(sourceButton.getText().equals("F"))
+            return;
+        BaseClient.game.alertMovimentInBoard(parseIDtoIntArr(sourceButton.getId()), winStatus.PLAYING);
         int [][] newBoard = BaseClient.game.getNewBoard();
         for(int i = 0; i < x; i++){
             for(int j = 0; j < y;j++){
                 if(buttons[i][j].isDisabled()) continue;
                 // mina sin descubrir
-                if(newBoard[i][j] == 11) continue;
+                if(newBoard[i][j] == 11 || newBoard[i][j] == 12) continue;
                 if(newBoard[i][j] != 0)
                     buttons[i][j].setText(String.format("%d",newBoard[i][j]));
+                if(newBoard[i][j] == -1){
+                    setMineDiscovered(buttons[i][j]);
+                }
                 buttons[i][j].setDisable(true);
             }
+        }
+
+        if(BaseClient.game.serverResponse.getStatus() == winStatus.WIN){
+            System.out.println("Winned!");
+            gameDialogBox.setVisible(true);
+            timeline.stop();
+            gameDialog.setText("You have won!");
+        } else if(BaseClient.game.serverResponse.getStatus() == winStatus.LOSE){
+            System.out.println("Loser!");
+            gameDialogBox.setVisible(true);
+            timeline.stop();
+            gameDialog.setText("You have lost!");
+        }
+    }
+
+    public void addFlag(Button sourceButton){
+        if(sourceButton.getAccessibleHelp() == null){
+            System.out.println("Bandera puesta: " + sourceButton.getId());
+            sourceButton.setAccessibleHelp("Flag");
+            noMines.setText(String.format("%04d",--no_mines));
+            BaseClient.game.alertMovimentInBoard(parseIDtoIntArr(sourceButton.getId()), winStatus.FLAG_ADD);
+            setFlagImage(sourceButton);
+        } else{
+            System.out.println("Bandera removida: " + sourceButton.getId());
+            sourceButton.setAccessibleHelp(null);
+            noMines.setText(String.format("%04d",++no_mines));
+            BaseClient.game.alertMovimentInBoard(parseIDtoIntArr(sourceButton.getId()), winStatus.FLAG_REMOVE);
+            sourceButton.setText(""); sourceButton.setGraphic(null);
         }
     }
 
@@ -107,6 +149,13 @@ public class Board {
         ImageView mine = new ImageView(mineImg);
         mine.setFitWidth(sourceButton.getHeight()/2); mine.setFitHeight(sourceButton.getHeight()/2);
         sourceButton.setGraphic(mine);
+        sourceButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+    }
+
+    public void setFlagImage(Button sourceButton){
+        ImageView flag = new ImageView(flagImg);
+        flag.setFitWidth(2*sourceButton.getHeight()/3); flag.setFitHeight(2*sourceButton.getHeight()/3);
+        sourceButton.setGraphic(flag);
         sourceButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 
