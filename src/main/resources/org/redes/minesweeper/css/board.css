@@ -14,7 +14,7 @@
 
 .infoMenu {
     -fx-alignment: center;
-    -fx-spacing: 90px;
+    -fx-spacing: 180px;
     -fx-font-size: 20px;
     -fx-max-height: 200px;
 }
@@ -64,10 +64,50 @@
 
 .gameDialog {
     -fx-alignment: center;
+    -fx-translate-y: 25px;
 }
+
+.acrylic-background {
+    -fx-background-color: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
+}
+
 
 .gameDialog > .label {
     -fx-font-size: 20px;
     -fx-padding: 8px;
     -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+
+.infoBox {
+    -fx-background-color: rgba(30, 30, 46, 0.4);
+    -fx-max-height: 500px;
+    -fx-max-width: 400px;
+    -fx-translate-y: 40px;
+    -fx-border-radius: 15px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.infoBox > .title{
+    -fx-font-size: 20px;
+}
+.infoBox > .infoText {
+    -fx-font-size: 10px;
+    -fx-line-spacing: 6px;
+    -fx-text-alignment: justify;
+    -fx-text-fill: #b5b6cb;
+    -fx-padding: 10;
+}
+
+.infoBox > .button {
+    -fx-padding: 10px;
+    -fx-font-size: 10px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-pref-width: 120px;
+    -fx-background-color: #89b4fa;
+}
+
+.infoBox > .button:pressed {
+    -fx-background-color: #547fc4;
 }

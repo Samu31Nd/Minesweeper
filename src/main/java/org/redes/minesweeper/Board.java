@@ -10,9 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -39,6 +43,10 @@ public class Board {
     VBox gameDialogBox;
     @FXML
     Label gameDialog;
+    @FXML
+    VBox gameVBox;
+    @FXML
+    VBox howToPlayBox;
 
     Image mineImg, flagImg;
     Button[][] buttons;
@@ -69,7 +77,6 @@ public class Board {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
         for(int i = 0; i < x; i++){
             for(int j = 0; j < y; j++) {
                 // Crear un nuevo botón
@@ -168,4 +175,40 @@ public class Board {
         stage.setTitle("Menu");
         stage.show();
     }
+
+    public void showHowToPlay(ActionEvent event){
+        BoxBlur blur = new BoxBlur(10,10,3);
+        gameVBox.setEffect(blur);
+        howToPlayBox.setVisible(true);
+    }
+
+    @FXML
+    public void closeHowToPlayButton(ActionEvent event){
+        gameVBox.setEffect(null);
+        howToPlayBox.setVisible(false);
+    }
+
+    @FXML
+    public void onStopClick(ActionEvent event) {
+        MenuItem stopButton = (MenuItem) event.getSource();
+        if (stopButton.getText().equals("Stop")) {
+            stopButton.setText("Resume");
+
+            // Añadir la clase CSS para el fondo acrílico
+            gameDialogBox.getStyleClass().add("acrylic-background");
+            gameDialogBox.setVisible(true);
+            gameDialog.setVisible(false);
+            timeline.stop();
+        } else {
+            stopButton.setText("Stop");
+
+            // Remover la clase CSS para quitar el fondo acrílico
+            gameDialogBox.getStyleClass().remove("acrylic-background");
+            gameDialogBox.setVisible(false);
+            gameDialog.setVisible(true);
+            timeline.play();
+        }
+    }
+
+
 }

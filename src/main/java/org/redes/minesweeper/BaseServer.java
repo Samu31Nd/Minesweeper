@@ -118,10 +118,16 @@ public class BaseServer {
     static private void placeMines(int x, int y){
         Random randoms = new Random();
         int no_mines = gameDifficulty.getMines();
-        //la habilitamos
-        mines[x-1][y-1] = true; mines[x][y-1] = true; mines[x+1][y-1] = true;
-        mines[x-1][ y ] = true; mines[x][ y ] = true; mines[x+1][ y ] = true;
-        mines[x-1][y+1] = true; mines[x][y+1] = true; mines[x+1][y+1] = true;
+        // Habilitamos las minas alrededor de (x, y) si están dentro de los límites
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int newX = x + i;
+                int newY = y + j;
+                if (newX >= 0 && newX < size[0] && newY >= 0 && newY < size[1]) {
+                    mines[newX][newY] = true;
+                }
+            }
+        }
 
         while(no_mines > 0){
             int i = randoms.nextInt(size[0]);
@@ -131,10 +137,15 @@ public class BaseServer {
                 no_mines--;
             }
         }
-        //luego la quitamos :)
-        mines[x-1][y-1] = false; mines[x][y-1] = false; mines[x+1][y-1] = false;
-        mines[x-1][ y ] = false; mines[x][ y ] = false; mines[x+1][ y ] = false;
-        mines[x-1][y+1] = false; mines[x][y+1] = false; mines[x+1][y+1] = false;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int newX = x + i;
+                int newY = y + j;
+                if (newX >= 0 && newX < size[0] && newY >= 0 && newY < size[1]) {
+                    mines[newX][newY] = false;
+                }
+            }
+        }
     }
 
     static private void contarMinasAlrededor() {

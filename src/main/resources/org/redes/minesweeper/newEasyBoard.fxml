@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,15 +16,18 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@css/board.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.redes.minesweeper.Board">
    <children>
-       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+       <VBox fx:id="gameVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
            <children>
                <MenuBar styleClass="menuOptions">
                    <menus>
                        <Menu mnemonicParsing="false" text="Game">
                            <items>
                                <MenuItem mnemonicParsing="false" text="Restart" />
-                               <MenuItem mnemonicParsing="false" text="Stop" />
-                               <MenuItem fx:id="exitButtonItem" mnemonicParsing="false" onAction="#goToMenu" text="Exit Game" />
+                               <MenuItem mnemonicParsing="false" onAction="#onStopClick" text="Stop" />
+                               <MenuItem fx:id="exitButtonItem" mnemonicParsing="false" onAction="#goToMenu" text="Exit Game">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="ESCAPE" control="UP" meta="UP" shift="ANY" shortcut="UP" />
+                           </accelerator></MenuItem>
                            </items>
                        </Menu>
                        <Menu mnemonicParsing="false" text="Settings">
@@ -33,7 +37,10 @@
                        </Menu>
                        <Menu mnemonicParsing="false" text="Help">
                            <items>
-                               <MenuItem mnemonicParsing="false" text="How to play" />
+                               <MenuItem mnemonicParsing="false" onAction="#showHowToPlay" text="How to play">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="HELP" control="UP" meta="UP" shift="ANY" shortcut="UP" />
+                           </accelerator></MenuItem>
                            </items>
                        </Menu>
                    </menus>
@@ -41,7 +48,6 @@
                <HBox prefHeight="100.0" prefWidth="200.0" styleClass="infoMenu">
                    <children>
                        <Label fx:id="timer" text="0000" />
-                       <ImageView fitHeight="63.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
                        <Label fx:id="noMines" text="0000" />
                    </children>
                </HBox>
@@ -74,9 +80,19 @@
                </GridPane>
            </children>
        </VBox>
-      <VBox fx:id="gameDialogBox" prefHeight="200.0" prefWidth="100.0" styleClass="gameDialog" visible="false">
+      <VBox fx:id="gameDialogBox" prefHeight="200.0" prefWidth="100.0" styleClass="gameDialog">
          <children>
             <Label fx:id="gameDialog" text="Game Status" />
          </children></VBox>
+      <VBox fx:id="howToPlayBox" prefHeight="200.0" prefWidth="100.0" styleClass="infoBox" visible="false" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <children>
+            <Label styleClass="title" text="Como jugar" />
+            <Label styleClass="infoText" text="En el juego de Buscaminas, el objetivo es descubrir todas las casillas que no contienen minas en una cuadrícula. Al hacer clic en una casilla, puede aparecer un número que indica cuántas minas hay alrededor (hasta en ocho casillas adyacentes), lo cual te ayuda a deducir dónde están las minas. Si piensas que una casilla oculta una mina, puedes marcarla con una bandera. El primer clic nunca te hará perder, pero si en algún momento haces clic en una mina, pierdes. Ganas el juego si logras descubrir todas las casillas sin minas. ¡Buena suerte!" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#closeHowToPlayButton" text="Cerrar" />
+         </children>
+      </VBox>
    </children>
 </StackPane>
