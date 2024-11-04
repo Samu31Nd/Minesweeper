@@ -36,7 +36,7 @@ public enum Difficulty {
         }
         @Override
         public int[] getSize() {
-            return new int[]{16, 30};
+            return new int[]{30, 16};
         }
         @Override
         public String toString() {

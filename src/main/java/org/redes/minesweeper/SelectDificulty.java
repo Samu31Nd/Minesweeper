@@ -26,7 +26,7 @@ public class SelectDificulty {
     protected void onEasyClick(ActionEvent event) throws IOException {
         BaseClient.game.gameClassShared.setDifficulty(Difficulty.Easy);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("newEasyBoard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("easyBoard.fxml"));
         Scene scene1 = new Scene(fxmlLoader.load());
         stage.setScene(scene1);
         stage.setTitle("Minesweeper");
@@ -53,9 +53,10 @@ public class SelectDificulty {
         BaseClient.game.gameClassShared.setDifficulty(Difficulty.Hard);
         System.out.println("Hard!");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("boardEasy.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("hardBoard.fxml"));
         Scene scene1 = new Scene(fxmlLoader.load());
         stage.setScene(scene1);
+        stage.centerOnScreen();
         stage.setTitle("Minesweeper");
         stage.show();
     }

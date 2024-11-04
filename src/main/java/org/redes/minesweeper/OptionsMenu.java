@@ -27,6 +27,7 @@ public class OptionsMenu {
         scene.getStylesheets().add(css);
         stage.setTitle("Minesweeper menu");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }

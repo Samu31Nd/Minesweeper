@@ -182,9 +182,9 @@ public class BaseServer {
         StringBuilder line;
         int[] size = gameDifficulty.getSize();
 
-        for (int i = 0; i < size[0]; i++) {
+        for (int i = 0; i < size[1]; i++) {
             line = new StringBuilder();
-            for (int j = 0; j < size[1]; j++) {
+            for (int j = 0; j < size[0]; j++) {
                 // Formato de ancho fijo de 3 caracteres para centrar los números
                 if (tablero[j][i] == UNDISCOVERED_CELL) {
                     line.append("[   ] ");
