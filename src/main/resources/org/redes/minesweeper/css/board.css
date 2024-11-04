@@ -19,6 +19,21 @@
     -fx-max-height: 200px;
 }
 
+.gameModal {
+    -fx-alignment: top-center;
+    -fx-spacing: 50px;
+    -fx-padding: 10px;
+    -fx-fill-width: true;
+}
+
+.infoMenuVertical {
+    -fx-font-size: 20px;
+    -fx-alignment: top-center;
+    -fx-fill-width: true;
+    -fx-spacing: 40px;
+    -fx-padding: 40 0 0 0;
+}
+
 .image {
     -fx-max-height: 180px;
 }
@@ -31,12 +46,15 @@
     -fx-font-family: "Arial";
 }
 
+.gameVBox{
+    -fx-content-display: center;
+}
+
 .grid_board {
     -fx-background-color: #45475a;
     -fx-padding: 10px;
     -fx-spacing: 5px;
     -fx-alignment: center;
-    -fx-fill-height: true;
 }
 
 .grid_cell {

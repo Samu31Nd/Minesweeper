@@ -47,8 +47,18 @@
                </MenuBar>
                <HBox prefHeight="100.0" prefWidth="200.0" styleClass="infoMenu">
                    <children>
-                       <Label fx:id="timer" text="0000" />
-                       <Label fx:id="noMines" text="0000" />
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" HBox.hgrow="NEVER">
+                     <children>
+                        <Label text="Time" />
+                             <Label fx:id="timer" alignment="CENTER" contentDisplay="CENTER" text="0000" VBox.vgrow="NEVER" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" HBox.hgrow="NEVER">
+                     <children>
+                        <Label text="Mines" />
+                             <Label fx:id="noMines" text="0000" />
+                     </children>
+                  </VBox>
                    </children>
                </HBox>
                <GridPane fx:id="gridBoard" alignment="CENTER" prefHeight="620.0" prefWidth="620.0" styleClass="grid_board">
@@ -80,7 +90,7 @@
                </GridPane>
            </children>
        </VBox>
-      <VBox fx:id="gameDialogBox" prefHeight="200.0" prefWidth="100.0" styleClass="gameDialog">
+      <VBox fx:id="gameDialogBox" prefHeight="200.0" prefWidth="100.0" styleClass="gameDialog" visible="false">
          <children>
             <Label fx:id="gameDialog" text="Game Status" />
          </children></VBox>

@@ -83,7 +83,7 @@ public class Board {
                 Button button = new Button();
                 button.setMaxWidth(Double.MAX_VALUE);
                 button.setMaxHeight(Double.MAX_VALUE);
-                button.setId(i + "" + j);
+                button.setId(i + "," + j);
 
                 button.setOnMouseClicked(event -> {
                     Button sourceButton = (Button) event.getSource();
@@ -101,7 +101,7 @@ public class Board {
 
     public void discoverMine(Button sourceButton){
         //si es una bandera que no haga nada
-        if(sourceButton.getText().equals("F"))
+        if(sourceButton.getAccessibleHelp() != null)
             return;
         BaseClient.game.alertMovimentInBoard(parseIDtoIntArr(sourceButton.getId()), winStatus.PLAYING);
         int [][] newBoard = BaseClient.game.getNewBoard();
@@ -149,7 +149,8 @@ public class Board {
     }
 
     public int[] parseIDtoIntArr(String id){
-        return new int[]{Integer.parseInt(String.valueOf(id.toCharArray()[0])),Integer.parseInt(String.valueOf(id.toCharArray()[1])) };
+        String[] idArray = id.split(",");
+        return new int[]{Integer.parseInt(idArray[0]), Integer.parseInt(idArray[1]) };
     }
 
     public void setMineDiscovered(Button sourceButton){
@@ -179,6 +180,11 @@ public class Board {
     public void showHowToPlay(ActionEvent event){
         BoxBlur blur = new BoxBlur(10,10,3);
         gameVBox.setEffect(blur);
+        timeline.stop();
+        // Añadir la clase CSS para el fondo acrílico
+        gameDialogBox.getStyleClass().add("acrylic-background");
+        gameDialogBox.setVisible(true);
+        gameDialog.setVisible(false);
         howToPlayBox.setVisible(true);
     }
 
@@ -186,6 +192,11 @@ public class Board {
     public void closeHowToPlayButton(ActionEvent event){
         gameVBox.setEffect(null);
         howToPlayBox.setVisible(false);
+        // Remover la clase CSS para quitar el fondo acrílico
+        gameDialogBox.getStyleClass().remove("acrylic-background");
+        gameDialogBox.setVisible(false);
+        gameDialog.setVisible(true);
+        timeline.play();
     }
 
     @FXML

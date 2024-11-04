@@ -39,9 +39,10 @@ public class SelectDificulty {
         BaseClient.game.gameClassShared.setDifficulty(Difficulty.Medium);
         System.out.println("Medium!");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("boardEasy.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SelectDificulty.class.getResource("mediumBoard.fxml"));
         Scene scene1 = new Scene(fxmlLoader.load());
         stage.setScene(scene1);
+        stage.centerOnScreen();
         stage.setTitle("Minesweeper");
         stage.show();
 
