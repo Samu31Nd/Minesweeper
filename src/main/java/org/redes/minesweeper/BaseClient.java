@@ -10,7 +10,6 @@ import org.redes.minesweeper.gameUtils.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class BaseClient extends Application {
@@ -28,9 +27,7 @@ public class BaseClient extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Minesweeper menu");
 
-        stage.setOnCloseRequest((WindowEvent event) -> {
-            clientThread.interrupt();
-        });
+        stage.setOnCloseRequest((WindowEvent event) -> clientThread.interrupt());
         stage.setScene(scene);
         stage.show();
     }
@@ -41,12 +38,10 @@ public class BaseClient extends Application {
 }
 
 class gameClient implements Runnable{
-    //instancia de juego que se comparte con el servidor
     public final GameClass gameClassShared;
     private String status;
-    private Socket cl;
-    private ObjectOutputStream oos; private ObjectInputStream ois;
-    private MovimentObject lastMoviment;
+    private ObjectInputStream ois;
+    private final MovimentObject lastMoviment;
     public BoardObject serverResponse;
 
     //Setters y getters
@@ -66,8 +61,8 @@ class gameClient implements Runnable{
 
     public void conectionToServer(){
         try {
-            cl = new Socket("localhost",3000);
-            oos = new ObjectOutputStream(cl.getOutputStream());
+            Socket cl = new Socket("localhost", 3005);
+            ObjectOutputStream oos = new ObjectOutputStream(cl.getOutputStream());
             oos.writeObject(gameClassShared.getDifficulty());
             oos.flush();
             waitMovimentToRecieve();

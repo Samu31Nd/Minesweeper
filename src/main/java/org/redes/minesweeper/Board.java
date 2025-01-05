@@ -10,13 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.effect.Blend;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -26,8 +23,6 @@ import org.redes.minesweeper.gameUtils.winStatus;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.function.Consumer;
-
 
 public class Board {
 
@@ -80,23 +75,28 @@ public class Board {
         for(int i = 0; i < x; i++){
             for(int j = 0; j < y; j++) {
                 // Crear un nuevo botón
-                Button button = new Button();
-                button.setMaxWidth(Double.MAX_VALUE);
-                button.setMaxHeight(Double.MAX_VALUE);
-                button.setId(i + "," + j);
-
-                button.setOnMouseClicked(event -> {
-                    Button sourceButton = (Button) event.getSource();
-                    if (event.getButton() == MouseButton.PRIMARY)
-                        discoverMine(sourceButton);
-                    else
-                        addFlag(sourceButton);
-                });
+                Button button = createButton(i, j);
 
                 buttons[i][j] = button;
                 gridBoard.add(button, i, j);
             }
         }
+    }
+
+    private Button createButton(int i, int j) {
+        Button button = new Button();
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setMaxHeight(Double.MAX_VALUE);
+        button.setId(i + "," + j);
+
+        button.setOnMouseClicked(event -> {
+            Button sourceButton = (Button) event.getSource();
+            if (event.getButton() == MouseButton.PRIMARY)
+                discoverMine(sourceButton);
+            else
+                addFlag(sourceButton);
+        });
+        return button;
     }
 
     public void discoverMine(Button sourceButton){
@@ -167,7 +167,7 @@ public class Board {
         sourceButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 
-    public void goToMenu(ActionEvent event) throws IOException {
+    public void goToMenu() throws IOException {
         Stage stage = (Stage) gridBoard.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Board.class.getResource("mainMenu.fxml"));
         Scene scene1 = new Scene(fxmlLoader.load());
@@ -177,7 +177,7 @@ public class Board {
         stage.show();
     }
 
-    public void showHowToPlay(ActionEvent event){
+    public void showHowToPlay(){
         BoxBlur blur = new BoxBlur(10,10,3);
         gameVBox.setEffect(blur);
         timeline.stop();
@@ -189,7 +189,7 @@ public class Board {
     }
 
     @FXML
-    public void closeHowToPlayButton(ActionEvent event){
+    public void closeHowToPlayButton(){
         gameVBox.setEffect(null);
         howToPlayBox.setVisible(false);
         // Remover la clase CSS para quitar el fondo acrílico

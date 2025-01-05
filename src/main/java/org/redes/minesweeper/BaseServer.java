@@ -11,12 +11,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.Arrays;
 import java.util.Random;
 
 public class BaseServer {
     //VARIABLES DE ENTORNO
-    static int port = 3000;
+    static int port = 3005;
     static int FLAG = 12;
     static int MINE = -1;
     static int UNDISCOVERED_CELL = 11;
